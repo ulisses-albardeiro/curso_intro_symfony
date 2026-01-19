@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Category;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -15,7 +16,7 @@ final class CategoryFactory extends PersistentObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(private SluggerInterface $slugger)
     {
     }
 
@@ -46,7 +47,9 @@ final class CategoryFactory extends PersistentObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Category $category): void {})
+            ->afterInstantiate(function(Category $category): void {
+                $category->setSlug($this->slugger->slug($category->getName())->lower()->toString());
+            })
         ;
     }
 }

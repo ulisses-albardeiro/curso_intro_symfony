@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Post;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -15,7 +16,7 @@ final class PostFactory extends PersistentObjectFactory
      *
      * @todo inject services if required
      */
-    public function __construct()
+    public function __construct(private SluggerInterface $slugger)
     {
     }
 
@@ -36,7 +37,7 @@ final class PostFactory extends PersistentObjectFactory
         return [
             'category' => CategoryFactory::randomOrCreate(),
             'createdAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
-            'text' => self::faker()->text(),
+            'text' => self::faker()->paragraphs(4, true),
             'title' => self::faker()->words(4, true),
         ];
     }
@@ -48,7 +49,9 @@ final class PostFactory extends PersistentObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Post $post): void {})
+            ->afterInstantiate(function(Post $post): void {
+                $post->setSlug($this->slugger->slug($post->getTitle())->lower()->toString());
+            })
         ;
     }
 }
