@@ -1,0 +1,40 @@
+{% extends 'base_blog.html.twig' %}
+
+{% block title %}
+	{{ post.title }}
+{% endblock %}
+
+{% block content %}
+	<div class="container my-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+
+				<article class="card shadow-sm border-0">
+					<div class="card-body">
+
+						<h1 class="mb-3">{{ post.title }}</h1>
+
+						{% if post.createdAt is defined %}
+							<p class="text-muted small mb-4">
+								Publicado em
+								{{ post.createdAt|date('d/m/Y') }}
+							</p>
+						{% endif %}
+
+						<div class="post-content">
+							{{ post.text }}
+						</div>
+
+						<hr>
+
+						<a href="{{ path('app_home') }}" class="btn btn-outline-secondary btn-sm">
+							← Voltar para o blog
+						</a>
+
+					</div>
+				</article>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +14,7 @@ final class HomeController extends AbstractController
     public function __construct(
         private CategoryRepository $categoryRepository,
         private PostRepository $postRepository,
-        ) {}
+    ) {}
 
     #[Route('/', name: 'app_home')]
     public function index(): Response
@@ -23,5 +24,17 @@ final class HomeController extends AbstractController
             'categories' => $this->categoryRepository->findAll(),
             'posts' => $this->postRepository->findAll(),
         ]);
+    }
+
+    #[Route('post/{id}', name: 'app_post', methods: ['GET'])]
+    public function show(Post $post): Response
+    {
+        return $this->render(
+            'post/post.html.twig',
+            [
+                'post' => $post,
+                'categories' => $this->categoryRepository->findAll(),
+            ]
+        );
     }
 }

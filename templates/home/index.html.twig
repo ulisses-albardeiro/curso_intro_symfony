@@ -14,7 +14,7 @@
 						<div class="card-body">
 							<h5 class="card-title">{{ post.title }}</h5>
 							<p class="card-text text-muted">{{ post.text }}</p>
-							<a href="#" class="btn btn-outline-primary btn-sm">Ler mais</a>
+							<a href="{{ path('app_post', { 'id': post.id }) }}" class="btn btn-outline-primary btn-sm">Ler mais</a>
 						</div>
 					</div>
 				</div>
