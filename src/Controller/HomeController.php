@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Post;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -26,8 +27,8 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('post/{id}', name: 'app_post', methods: ['GET'])]
-    public function show(Post $post): Response
+    #[Route('/{slug}', name: 'app_post', methods: ['GET'])]
+    public function show(#[MapEntity(mapping:['slug' => 'slug'])] Post $post): Response
     {
         return $this->render(
             'post/post.html.twig',
