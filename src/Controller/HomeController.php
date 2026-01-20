@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
@@ -34,6 +35,19 @@ final class HomeController extends AbstractController
             'post/post.html.twig',
             [
                 'post' => $post,
+                'categories' => $this->categoryRepository->findAll(),
+            ]
+        );
+    }
+
+    #[Route('category/{slug}', name: 'app_category', methods: ['GET'])]
+    public function category(#[MapEntity(mapping:['slug' => 'slug'])] Category $category): Response
+    {
+        return $this->render(
+            'post_category/posts_category.html.twig',
+            [
+                'category' => $category,
+                'posts' => $category->getPosts(),
                 'categories' => $this->categoryRepository->findAll(),
             ]
         );
