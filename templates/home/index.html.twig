@@ -6,6 +6,16 @@
 {% block content %}
 
 	<div class="container my-5">
+
+	{% if search is defined %}
+	<h3>Resultados para: <strong>{{ search }}</strong></h3>
+
+	{% if posts == null %}
+		<h4 class="text-center fw-bold"> Nenhum resultado para essa pesquisa</h4>
+	{% endif %}
+	
+	{% endif %}
+
 		<div class="row g-4">
 
 			{% for post in posts %}

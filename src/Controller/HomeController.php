@@ -30,7 +30,7 @@ final class HomeController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_post', methods: ['GET'])]
-    public function show(#[MapEntity(mapping:['slug' => 'slug'])] Post $post): Response
+    public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Post $post): Response
     {
         return $this->render(
             'post/post.html.twig',
@@ -42,7 +42,7 @@ final class HomeController extends AbstractController
     }
 
     #[Route('category/{slug}', name: 'app_category', methods: ['GET'])]
-    public function category(#[MapEntity(mapping:['slug' => 'slug'])] Category $category): Response
+    public function category(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
         return $this->render(
             'post_category/posts_category.html.twig',
@@ -54,11 +54,18 @@ final class HomeController extends AbstractController
         );
     }
 
-    #[Route('search', name:'app_search', methods:['POST'])]
+    #[Route('search', name: 'app_search', methods: ['POST'])]
     public function search(Request $request)
     {
-        $data = $request->request->all();
+        $term = $request->request->all();
 
-        dd($data['search']);
+        $posts = $this->postRepository->findBySearchTerm($term['search']);
+
+        return $this->render('home/index.html.twig', [
+            'title' => 'Inicio do blog',
+            'categories' => $this->categoryRepository->findAll(),
+            'posts' => $posts,
+            'search' => $term['search'],
+        ]);
     }
 }
