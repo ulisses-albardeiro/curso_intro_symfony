@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -51,5 +52,13 @@ final class HomeController extends AbstractController
                 'categories' => $this->categoryRepository->findAll(),
             ]
         );
+    }
+
+    #[Route('search', name:'app_search', methods:['POST'])]
+    public function search(Request $request)
+    {
+        $data = $request->request->all();
+
+        dd($data['search']);
     }
 }
