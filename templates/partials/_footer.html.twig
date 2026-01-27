@@ -1,9 +1,16 @@
-<footer class="bg-dark text-center text-lg-start mt-5">
-  <div class="text-center p-3 text-white" style="background-color: rgba(0, 0, 0, 0.05);">
-    © {{ 'now'|date('Y') }} Copyright 
-    <a class="text-white text-decoration-none" href="{{ path('app_home') }}">blog.com.br</a>
-  </div>
-  <div>
-  <a class="text-white" href="{{path('app_login')}}">Login</a>
+<footer class="bg-dark text-white mt-5">
+  <div class="container d-flex justify-content-between align-items-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+    <div style="width: 50px;"></div> 
+
+    <div>
+      © {{ 'now'|date('Y') }} Copyright 
+      <a class="text-white text-decoration-none fw-bold" href="{{ path('app_home') }}">blog.com.br</a>
+    </div>
+
+    <div>
+      <a class="text-secondary text-decoration-none small" href="{{ path('app_login') }}">
+        <i class="bi bi-lock-fill"></i> Admin
+      </a>
+    </div>
   </div>
 </footer>
