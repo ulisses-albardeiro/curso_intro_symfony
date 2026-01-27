@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class HomeController extends AbstractController
+final class SiteController extends AbstractController
 {
     public function __construct(
         private CategoryRepository $categoryRepository,
@@ -29,8 +29,8 @@ final class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'app_post', methods: ['GET'])]
-    public function show(#[MapEntity(mapping: ['slug' => 'slug'])] Post $post): Response
+    #[Route('p/{slug}', name: 'app_post', methods: ['GET'])]
+    public function showPost(#[MapEntity(mapping: ['slug' => 'slug'])] Post $post): Response
     {
         return $this->render(
             'post/post.html.twig',
@@ -42,7 +42,7 @@ final class HomeController extends AbstractController
     }
 
     #[Route('category/{slug}', name: 'app_category', methods: ['GET'])]
-    public function category(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
+    public function showCategory(#[MapEntity(mapping: ['slug' => 'slug'])] Category $category): Response
     {
         return $this->render(
             'post_category/posts_category.html.twig',
