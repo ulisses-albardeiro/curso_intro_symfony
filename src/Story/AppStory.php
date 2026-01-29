@@ -5,6 +5,7 @@ namespace App\Story;
 use App\Entity\Category;
 use App\Factory\CategoryFactory;
 use App\Factory\PostFactory;
+use App\Factory\UserFactory;
 use Zenstruck\Foundry\Attribute\AsFixture;
 use Zenstruck\Foundry\Story;
 
@@ -15,5 +16,6 @@ final class AppStory extends Story
     {
         CategoryFactory::createMany(3);
         PostFactory::createMany(50);
+        UserFactory::createOne();
     }
 }
